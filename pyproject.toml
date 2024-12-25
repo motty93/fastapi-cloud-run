@@ -1,7 +1,61 @@
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+exclude = '''
+/(
+    \.venv
+    |\.mypy_cache
+    |\.pytest_cache
+    |_build
+    |buck-out
+    |build
+    |dist
+)/
+'''
+
 [tool.isort]
 profile = "black"
-line_length = 150
+line_length = 88
+known_first_party = ["your_project_name"]
+default_section = "THIRDPARTY"
 
-[tool.black]
-line-length = 150
-target-version = ['py310']
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+exclude = '''
+/(
+    \.venv
+    |\.mypy_cache
+    |\.pytest_cache
+    |_build
+    |buck-out
+    |build
+    |dist
+)/
+'''
+
+[tool.flake8]
+max-line-length = 88
+exclude = [
+    ".venv",
+    ".mypy_cache",
+    ".pytest_cache",
+    "_build",
+    "buck-out",
+    "build",
+    "dist"
+]
+extend-ignore = [
+    "E203",  # スライスのコロンに関するエラーを無視 (Black と互換性のため)
+    "W503"   # 行の後に演算子がある場合の警告を無視 (Black と互換性のため)
+]
+# プロジェクトで使う場合の推奨
+per-file-ignores = [
+    "__init__.py:F401"  # 未使用のimportを許可する
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
