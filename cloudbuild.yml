@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'REGION-docker.pkg.dev/$PROJECT_ID/fastapi-repo/fastapi-cloudrun', '.']
+    args: ['build', '-t', 'REGION-docker.pkg.dev/$PROJECT_ID/fastapi-repo/fastapi-cloudrun', '-f', './.deploy/Dockerfile', '.']
 
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'REGION-docker.pkg.dev/$PROJECT_ID/fastapi-repo/fastapi-cloudrun']
